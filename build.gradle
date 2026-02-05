@@ -1,5 +1,6 @@
 plugins {
-    id 'java'
+    id "java"
+    id "io.spring.dependency-management" version "${springDependencyPluginVersion}"
 }
 
 group = 'org.nefedov'
@@ -9,10 +10,18 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("io.spring.platform:platform-bom:${bomSpringVersion}") {
+            bomProperties([
+                    "spring.version": "${springVersion}"
+            ])
+        }
+    }
+}
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation "org.springframework:spring-webmvc"
 }
 
 test {
