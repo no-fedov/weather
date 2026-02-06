@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="2026-02-06-17-20-create_user_table.xml" relativeToChangelogFile="true"/>
+    <include file="2026-02-06-17-30-create_session_table.xml" relativeToChangelogFile="true"/>
+    <include file="2026-02-06-17-45-create_location_table.xml" relativeToChangelogFile="true"/>
+    <include file="2026-02-06-17-55-user_location_table.xml" relativeToChangelogFile="true"/>
+    <include file="2026-02-06-18-25-unique_constraint_user_id_location_id_pair.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

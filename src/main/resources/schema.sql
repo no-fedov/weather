@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS weather_app;
-USE weather_app;
-
 CREATE TABLE IF NOT EXISTS users(
 	id int PRIMARY KEY AUTO_INCREMENT,
 	login varchar(255) NOT NULL,
