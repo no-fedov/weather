@@ -1,6 +1,5 @@
 plugins {
     id "java"
-    id "io.spring.dependency-management" version "${springDependencyPluginVersion}"
 }
 
 group = 'org.nefedov'
@@ -10,18 +9,13 @@ repositories {
     mavenCentral()
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("io.spring.platform:platform-bom:${bomSpringVersion}") {
-            bomProperties([
-                    "spring.version": "${springVersion}"
-            ])
-        }
-    }
-}
-
 dependencies {
-    implementation "org.springframework:spring-webmvc"
+    implementation "org.springframework:spring-webmvc:${springVersion}"
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+    implementation "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+    implementation "org.hibernate.orm:hibernate-core:${hibernateVersion}"
+    implementation "com.zaxxer:HikariCP:${hikariVersion}"
 }
 
 test {
