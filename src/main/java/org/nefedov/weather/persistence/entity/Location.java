@@ -1,4 +1,4 @@
-package org.nefedov.wheater.persistence.entity;
+package org.nefedov.weather.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

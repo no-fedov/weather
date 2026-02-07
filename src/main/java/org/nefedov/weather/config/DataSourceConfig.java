@@ -1,4 +1,4 @@
-package org.nefedov.wheater.config;
+package org.nefedov.weather.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

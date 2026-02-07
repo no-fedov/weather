@@ -1,11 +1,11 @@
-package org.nefedov.wheater.config;
+package org.nefedov.weather.config;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.nefedov.wheater.persistence.entity.Location;
-import org.nefedov.wheater.persistence.entity.Session;
-import org.nefedov.wheater.persistence.entity.User;
+import org.nefedov.weather.persistence.entity.Location;
+import org.nefedov.weather.persistence.entity.Session;
+import org.nefedov.weather.persistence.entity.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
