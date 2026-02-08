@@ -11,11 +11,21 @@ repositories {
 
 dependencies {
     implementation "org.springframework:spring-webmvc:${springVersion}"
+    implementation "org.springframework:spring-orm:${springVersion}"
     implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
     implementation "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
     implementation "ch.qos.logback:logback-classic:${logbackVersion}"
     implementation "org.hibernate.orm:hibernate-core:${hibernateVersion}"
     implementation "com.zaxxer:HikariCP:${hikariVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testImplementation "org.springframework:spring-test:${springVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testImplementation "org.junit.platform:junit-platform-launcher:${junitVersion}"
+    testImplementation "com.h2database:h2:${h2Version}"
 }
 
 test {

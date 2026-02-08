@@ -1,33 +1,37 @@
 package org.nefedov.weather.config;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.nefedov.weather.persistence.entity.Location;
-import org.nefedov.weather.persistence.entity.Session;
-import org.nefedov.weather.persistence.entity.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.orm.jpa.hibernate.HibernateTransactionManager;
+import org.springframework.orm.jpa.hibernate.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
+@EnableTransactionManagement
+@DependsOn(value = "liquibase")
 public class HibernateConfig {
 
     @Bean
-    @DependsOn(value = "liquibase")
-    public SessionFactory sessionFactory(DataSource dataSource) {
-        StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySetting("hibernate.connection.datasource", dataSource)
-                .applySetting("hibernate.show_sql", "true")
-                .applySetting("hibernate.format_sql", "true")
-                .applySetting("hibernate.hbm2ddl.auto", "validate")
-                .build();
-        org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
-        configuration.addAnnotatedClass(User.class);
-        configuration.addAnnotatedClass(Session.class);
-        configuration.addAnnotatedClass(Location.class);
-        return configuration.buildSessionFactory(serviceRegistry);
+    public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setPackagesToScan("org.nefedov.weather.persistence.entity");
+        Properties props = new Properties();
+        props.setProperty("hibernate.show_sql", "true");
+        props.setProperty("hibernate.format_sql", "true");
+        props.setProperty("hibernate.hbm2ddl.auto", "validate");
+        sessionFactory.setHibernateProperties(props);
+        return sessionFactory;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
+        return new HibernateTransactionManager(sessionFactory);
     }
 }
