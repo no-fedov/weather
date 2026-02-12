@@ -41,4 +41,9 @@ public class User {
             inverseForeignKey = @ForeignKey(name = "user_location_location_fk")
     )
     private Set<Location> locations;
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 }

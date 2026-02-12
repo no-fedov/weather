@@ -1,4 +1,4 @@
-package org.nefedov.weather.application.persistence.repository;
+package org.nefedov.weather.application.repository;
 
 import org.springframework.stereotype.Repository;
 
