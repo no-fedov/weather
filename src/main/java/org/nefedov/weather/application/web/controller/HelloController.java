@@ -10,6 +10,6 @@ public class HelloController {
 
     @GetMapping
     public String doGet() {
-        return "hello";
+        return "/static/hello";
     }
 }
