@@ -1,10 +1,9 @@
 package util;
 
-import org.nefedov.weather.persistence.entity.Session;
-import org.nefedov.weather.persistence.entity.User;
+import org.nefedov.weather.application.persistence.entity.Session;
+import org.nefedov.weather.application.persistence.entity.User;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class SessionUtil {
 

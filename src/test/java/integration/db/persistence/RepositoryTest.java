@@ -1,7 +1,7 @@
 package integration.db.persistence;
 
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.nefedov.weather.config.AppConfig;
+import org.nefedov.weather.config.app.AppConfig;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;

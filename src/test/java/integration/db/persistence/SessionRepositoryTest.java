@@ -2,13 +2,11 @@ package integration.db.persistence;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.nefedov.weather.persistence.entity.Session;
-import org.nefedov.weather.persistence.entity.User;
-import org.nefedov.weather.persistence.repository.SessionRepository;
-import org.nefedov.weather.persistence.repository.UserRepository;
+import org.nefedov.weather.application.persistence.entity.Session;
+import org.nefedov.weather.application.persistence.entity.User;
+import org.nefedov.weather.application.persistence.repository.SessionRepository;
+import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

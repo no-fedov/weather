@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 .kotlin
 .idea
+.smarttomcat
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

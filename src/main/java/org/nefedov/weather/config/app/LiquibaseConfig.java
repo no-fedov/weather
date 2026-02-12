@@ -1,4 +1,4 @@
-package org.nefedov.weather.config;
+package org.nefedov.weather.config.app;
 
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.Bean;

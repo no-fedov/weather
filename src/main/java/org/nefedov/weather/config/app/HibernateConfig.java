@@ -1,4 +1,4 @@
-package org.nefedov.weather.config;
+package org.nefedov.weather.config.app;
 
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setPackagesToScan("org.nefedov.weather.persistence.entity");
+        sessionFactory.setPackagesToScan("org.nefedov.weather.application.persistence.entity");
         Properties props = new Properties();
         props.setProperty("hibernate.show_sql", "true");
         props.setProperty("hibernate.format_sql", "true");

@@ -1,6 +1,6 @@
 package util;
 
-import org.nefedov.weather.persistence.entity.User;
+import org.nefedov.weather.application.persistence.entity.User;
 
 public class UserUtil {
 

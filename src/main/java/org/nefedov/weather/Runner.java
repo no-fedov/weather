@@ -1,6 +1,6 @@
 package org.nefedov.weather;
 
-import org.nefedov.weather.config.AppConfig;
+import org.nefedov.weather.config.app.AppConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Runner {

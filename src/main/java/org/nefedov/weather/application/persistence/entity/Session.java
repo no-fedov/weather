@@ -1,7 +1,6 @@
-package org.nefedov.weather.persistence.entity;
+package org.nefedov.weather.application.persistence.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;

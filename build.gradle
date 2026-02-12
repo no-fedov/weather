@@ -1,5 +1,6 @@
 plugins {
     id "java"
+    id "war"
 }
 
 group = 'org.nefedov'
@@ -26,6 +27,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testImplementation "org.junit.platform:junit-platform-launcher:${junitVersion}"
     testImplementation "com.h2database:h2:${h2Version}"
+    compileOnly("jakarta.servlet:jakarta.servlet-api:6.1.0")
 }
 
 test {
