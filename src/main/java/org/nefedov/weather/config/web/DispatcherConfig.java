@@ -3,6 +3,7 @@ package org.nefedov.weather.config.web;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverters;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -17,7 +18,7 @@ public class DispatcherConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
-                .addResourceLocations("/WEB-INF/static/");
+                .addResourceLocations("/static/");
     }
 
     @Bean
