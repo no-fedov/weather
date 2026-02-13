@@ -21,7 +21,7 @@ public class RegistrationService {
 
     @Transactional
     public SessionDto registration(UserCreateDto user) {
-        User savedUser = userRepository.save(new User(user.login(), user.password()));
+        User savedUser = userRepository.save(new User(user.getLogin(), user.getPassword()));
         Session savedSession = sessionRepository.save(new Session(null, LocalDateTime.now().plusHours(1), savedUser));
         return new SessionDto(savedSession.getId());
     }
