@@ -1,4 +1,4 @@
-package integration.db.persistence;
+package integration.persistence;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.nefedov.weather.config.app.AppConfig;
@@ -11,8 +11,5 @@ import org.springframework.transaction.annotation.Transactional;
 @ExtendWith({SpringExtension.class})
 @ContextConfiguration(classes = {AppConfig.class})
 @Transactional
-@Sql(value = "/clear_data_script.sql",
-        config = @SqlConfig(separator = ";"),
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public abstract class RepositoryTest {
 }

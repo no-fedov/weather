@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-                <form th:action="@{/sign-up}" th:object="${userCreateDto}" method="POST" class="mb-3">
+                <form th:action="@{/sign-up}" th:object="${userLoginDto}" method="POST" class="mb-3">
                     <div class="mb-3">
                         <label class="form-label">Username</label>
                         <input class="form-control"
@@ -28,16 +28,9 @@
                                required
                                th:field="*{password}">
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Repeat password</label>
-                        <input type="password"
-                               class="form-control"
-                               required
-                               th:field="*{repeatedPassword}">
-                    </div>
                     <button type="submit" class="btn btn-primary w-100 mt-3">Sign Up</button>
                 </form>
-                <a href="/sign-in">Уже зареган дай войти</a>
+                <a href="/sign-up">я еще не зареган</a>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-package integration.db.persistence;
+package integration.persistence;
 
 import org.junit.jupiter.api.Test;
 import org.nefedov.weather.application.persistence.entity.User;

@@ -1,4 +1,4 @@
-package integration.db.persistence;
+package integration.persistence;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,6 @@ import static util.SessionUtil.getSessionWithUser;
 import static util.SessionUtil.getSessionWithoutUser;
 import static util.UserUtil.getUserWithoutId;
 
-@Slf4j
 public class SessionRepositoryTest extends RepositoryTest {
 
     private static final String USER_LOGIN_TEST = "test_login";
