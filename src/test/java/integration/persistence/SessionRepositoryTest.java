@@ -1,6 +1,5 @@
 package integration.persistence;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.nefedov.weather.application.persistence.entity.Session;
 import org.nefedov.weather.application.persistence.entity.User;

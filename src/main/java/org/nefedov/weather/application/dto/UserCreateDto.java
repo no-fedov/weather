@@ -11,10 +11,4 @@ public class UserCreateDto {
     private String login;
     private String password;
     private String repeatedPassword;
-
-    public UserCreateDto(String login, String password, String repeatedPassword) {
-        this.login = login;
-        this.password = password;
-        this.repeatedPassword = repeatedPassword;
-    }
 }

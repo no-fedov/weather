@@ -28,4 +28,13 @@ public class UserRepositoryImpl implements UserRepository {
         User user = session.find(User.class, id);
         return Optional.ofNullable(user);
     }
+
+    @Override
+    public Optional<User> findByLogin(String login) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from User u where u.login = :login", User.class)
+                .setParameter("login", login)
+                .getResultStream()
+                .findFirst();
+    }
 }

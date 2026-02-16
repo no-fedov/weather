@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.SessionDto;
 import org.nefedov.weather.application.dto.UserCreateDto;
-import org.nefedov.weather.application.dto.UserLoginDto;
 import org.nefedov.weather.application.service.RegistrationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -20,12 +19,12 @@ import java.time.LocalDateTime;
 @Controller
 @RequestMapping(path = {"/sign-up", "/"})
 @RequiredArgsConstructor
-public class SessionController {
+public class RegistrationController {
 
     private final RegistrationService registrationService;
 
     @GetMapping
-    public String getRegistrationForm(Model model) {
+    public String registrationForm(Model model) {
         model.addAttribute("userCreateDto", new UserCreateDto());
         return "sign-up";
     }
@@ -36,11 +35,5 @@ public class SessionController {
         SessionDto registration = registrationService.registration(dto, LocalDateTime.now());
         Cookie cookie = new Cookie("session-id", registration.uuid().toString());
         response.addCookie(cookie);
-    }
-
-    @GetMapping("/sign-in")
-    public String signInForm(Model model) {
-        model.addAttribute("userLoginDto", new UserLoginDto());
-        return "sign-in";
     }
 }
