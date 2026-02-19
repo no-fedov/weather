@@ -3,7 +3,7 @@ package org.nefedov.weather.application.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.RequiredArgsConstructor;
-import org.nefedov.weather.application.dto.CoordinateRequestDto;
+import org.nefedov.weather.application.dto.CoordinateDto;
 import org.nefedov.weather.application.dto.WeatherClientResponseDto;
 import org.nefedov.weather.application.exception.ApiConnectTimeoutException;
 import org.nefedov.weather.application.exception.ApiResponseDeserializeException;
@@ -37,7 +37,7 @@ public class WeatherClient {
         return sendRequest(parameters);
     }
 
-    public Optional<WeatherClientResponseDto> findByCoordinate(CoordinateRequestDto dto) {
+    public Optional<WeatherClientResponseDto> findByCoordinate(CoordinateDto dto) {
         Map<String, Object> parameters = Map.of("lat", dto.lat(), "lon", dto.lon());
         return sendRequest(parameters);
     }

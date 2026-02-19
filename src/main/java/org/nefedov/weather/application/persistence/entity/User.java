@@ -1,5 +1,6 @@
 package org.nefedov.weather.application.persistence.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -10,17 +11,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class User {
 
     @Id
@@ -33,17 +35,22 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_location",
             joinColumns = @JoinColumn(table = "users", name = "user_id", referencedColumnName = "id"),
             foreignKey = @ForeignKey(name = "user_location_user_fk"),
             inverseJoinColumns = @JoinColumn(table = "location", name = "location_id", referencedColumnName = "id"),
             inverseForeignKey = @ForeignKey(name = "user_location_location_fk")
     )
-    private Set<Location> locations;
+
+    private Set<Location> locations = new HashSet<>();
 
     public User(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public void addLocation(Location location) {
+        this.locations.add(location);
     }
 }

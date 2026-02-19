@@ -7,9 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "location",
         uniqueConstraints = {
@@ -29,4 +33,10 @@ public class Location {
 
     @Column(name = "longitude", nullable = false)
     private BigDecimal longitude;
+
+    public Location(String name, BigDecimal latitude, BigDecimal longitude) {
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }

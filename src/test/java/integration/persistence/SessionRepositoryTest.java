@@ -16,9 +16,6 @@ import static util.UserUtil.getUserWithoutId;
 
 public class SessionRepositoryTest extends RepositoryTest {
 
-    private static final String USER_LOGIN_TEST = "test_login";
-    private static final String USER_PASSWORD_TEST = "test_password";
-
     @Autowired
     private SessionRepository sessionRepository;
     @Autowired

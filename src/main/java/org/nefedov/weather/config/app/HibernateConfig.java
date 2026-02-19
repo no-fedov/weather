@@ -14,7 +14,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@DependsOn(value = "liquibase")
+@DependsOn("liquibase")
 public class HibernateConfig {
 
     @Bean

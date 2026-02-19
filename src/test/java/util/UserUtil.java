@@ -2,13 +2,17 @@ package util;
 
 import org.nefedov.weather.application.persistence.entity.User;
 
+import java.util.HashSet;
+
 public class UserUtil {
 
     public static User getUserWithoutId(String login, String password) {
-        return new User(null, login, password, null);
+        return new User(login, password);
     }
 
     public static User getUserWithId(Integer id, String login, String password) {
-        return new User(id, login, password, null);
+        User user = new User(login, password);
+        user.setId(id);
+        return user;
     }
 }

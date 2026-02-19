@@ -9,5 +9,7 @@
     <include file="2026-02-06-17-55-user_location_table.xml" relativeToChangelogFile="true"/>
     <include file="2026-02-06-18-25-unique_constraint_user_id_location_id_pair.xml" relativeToChangelogFile="true"/>
     <include file="2026-02-07-19-30-unique_user_login.xml" relativeToChangelogFile="true"/>
+    <include file="2026-02-19-18-30-alter-location-autoincrement_id.xml" relativeToChangelogFile="true"/>
+    <include file="2026-02-19-18-50-alter-user_location-autoincrement_id.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
