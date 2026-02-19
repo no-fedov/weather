@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.core.env.PropertySourcesPropertyResolver;
 import org.springframework.stereotype.Controller;
 
 import java.net.http.HttpClient;
@@ -19,9 +20,10 @@ import java.time.Duration;
 public class AppConfig {
 
     @Bean
-    public HttpClient httpClient(@Value("${connectTimeout}") long connectionTimeout) {
+    public HttpClient httpClient() {
+//            @Value("${connectTimeoutSec}") long connectionTimeout) {
         return HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(connectionTimeout))
+//                .connectTimeout(Duration.ofSeconds(connectionTimeout))
                 .build();
     }
 

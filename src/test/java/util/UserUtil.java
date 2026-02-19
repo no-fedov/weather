@@ -2,8 +2,6 @@ package util;
 
 import org.nefedov.weather.application.persistence.entity.User;
 
-import java.util.HashSet;
-
 public class UserUtil {
 
     public static User getUserWithoutId(String login, String password) {
