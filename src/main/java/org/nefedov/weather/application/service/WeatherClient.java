@@ -26,7 +26,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class WeatherClient {
 
-    @Value("${apiKey}")
+    @Value("${api.key}")
     private String apiKey;
 
     private final HttpClient httpClient;
