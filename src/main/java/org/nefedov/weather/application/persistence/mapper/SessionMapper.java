@@ -17,6 +17,8 @@ public class SessionMapper {
     }
 
     public Session toEntity(LocalDateTime expiresAt, User user) {
-        return new Session(null, expiresAt, user);
+        Session session = new Session(expiresAt);
+        session.setUser(user);
+        return session;
     }
 }

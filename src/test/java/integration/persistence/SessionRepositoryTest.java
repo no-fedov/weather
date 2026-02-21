@@ -7,6 +7,8 @@ import org.nefedov.weather.application.persistence.repository.SessionRepository;
 import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,16 +25,18 @@ public class SessionRepositoryTest extends RepositoryTest {
 
     @Test
     public void saveSessionWithoutUser_Unsuccessful() {
-        Session session = getSessionWithoutUser();
+        LocalDateTime expiresAt = LocalDateTime.now();
+        Session session = getSessionWithoutUser(expiresAt);
 
         assertThrows(Exception.class, () -> sessionRepository.save(session));
     }
 
     @Test
     public void saveSessionWithUser_Successful() {
+        LocalDateTime expiresAt = LocalDateTime.now();
         User user = getUserWithoutId(USER_LOGIN_TEST, USER_PASSWORD_TEST);
         userRepository.save(user);
-        Session session = getSessionWithUser(user);
+        Session session = getSessionWithUser(expiresAt,user);
 
         Session savedSession = sessionRepository.save(session);
 

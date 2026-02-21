@@ -12,15 +12,16 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "session")
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Session {
 
     @Id
@@ -36,4 +37,8 @@ public class Session {
             foreignKey = @ForeignKey(name = "session_user_fk")
     )
     private User user;
+
+    public Session(LocalDateTime expiresAt) {
+        this.expiresAt = expiresAt;
+    }
 }

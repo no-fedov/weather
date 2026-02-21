@@ -1,6 +1,7 @@
 package integration.persistence;
 
 import org.junit.jupiter.api.Test;
+import org.nefedov.weather.application.dto.CoordinateDto;
 import org.nefedov.weather.application.persistence.entity.Location;
 import org.nefedov.weather.application.persistence.entity.User;
 import org.nefedov.weather.application.persistence.repository.LocationRepository;
@@ -43,7 +44,7 @@ public class LocationRepositoryImplTest extends RepositoryTest {
     public void findLocationByCoordinate_Successful() {
         Location location = getLocationWithoutId(LOCATION_NAME, LOCATION_LATITUDE, LOCATION_LONGITUDE);
         locationRepository.save(location);
-
-        locationRepository.findByCoordinate(LOCATION_LATITUDE, LOCATION_LONGITUDE).orElseThrow();
+        CoordinateDto coordinate = new CoordinateDto(LOCATION_LATITUDE, LOCATION_LONGITUDE);
+        locationRepository.findByCoordinate(coordinate).orElseThrow();
     }
 }
