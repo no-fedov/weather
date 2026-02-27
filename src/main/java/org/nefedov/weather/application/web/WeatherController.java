@@ -1,11 +1,11 @@
 package org.nefedov.weather.application.web;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.WeatherClientResponseDto;
 import org.nefedov.weather.application.service.WeatherService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,8 +24,7 @@ public class WeatherController {
     }
 
     @GetMapping
-    public List<WeatherClientResponseDto> findForUser(HttpServletRequest request) {
-        Integer id = (Integer) request.getAttribute("userId");
-        return weatherService.findForUser(id);
+    public List<WeatherClientResponseDto> findForUser(@RequestAttribute("userId") Integer userId) {
+        return weatherService.findForUser(userId);
     }
 }
