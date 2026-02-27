@@ -10,6 +10,7 @@ import org.nefedov.weather.application.persistence.mapper.LocationMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 @RequiredArgsConstructor
@@ -60,5 +61,12 @@ public class LocationRepositoryImpl implements LocationRepository {
         Location location = findByCoordinate(locationDto).orElseThrow();
         User user = userRepository.findById(userId).orElseThrow();
         user.getLocations().remove(location);
+    }
+
+    @Override
+    public Set<LocationDto> findByUserId(Integer userId) {
+        return userRepository.findById(userId)
+                .map(User::getLocations)
+                .map(locationMapper::toCoordinates).orElseThrow();
     }
 }

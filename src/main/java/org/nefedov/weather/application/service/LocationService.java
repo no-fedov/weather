@@ -6,6 +6,8 @@ import org.nefedov.weather.application.persistence.repository.LocationRepository
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class LocationService {
@@ -20,5 +22,10 @@ public class LocationService {
     @Transactional
     public void deleteLocationForUser(LocationDto location, Integer userId) {
         locationRepository.deleteLocationForUser(location, userId);
+    }
+
+    @Transactional
+    public Set<LocationDto> findUserLocation(Integer userId) {
+       return locationRepository.findByUserId(userId);
     }
 }
