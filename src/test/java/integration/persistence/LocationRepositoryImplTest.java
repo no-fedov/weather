@@ -1,24 +1,21 @@
 package integration.persistence;
 
 import org.junit.jupiter.api.Test;
-import org.nefedov.weather.application.dto.CoordinateDto;
+import org.nefedov.weather.application.dto.LocationDto;
 import org.nefedov.weather.application.persistence.entity.Location;
 import org.nefedov.weather.application.persistence.entity.User;
+import org.nefedov.weather.application.persistence.mapper.LocationMapper;
 import org.nefedov.weather.application.persistence.repository.LocationRepository;
-import org.nefedov.weather.application.persistence.repository.LocationRepositoryImpl;
 import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import util.LocationUtil;
 
-import java.math.BigDecimal;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static util.LocationUtil.getLocationWithoutId;
 import static util.UserUtil.getUserWithoutId;
 
 public class LocationRepositoryImplTest extends RepositoryTest {
 
     private static final String LOCATION_NAME = "MOSCOW";
-
     private static final Double LOCATION_LATITUDE = 10d;
     private static final Double LOCATION_LONGITUDE = 20d;
 
@@ -27,6 +24,9 @@ public class LocationRepositoryImplTest extends RepositoryTest {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private LocationMapper locationMapper;
 
     @Test
     public void saveLocationForUser_Successful() {
@@ -41,10 +41,15 @@ public class LocationRepositoryImplTest extends RepositoryTest {
     }
 
     @Test
-    public void findLocationByCoordinate_Successful() {
+    public void deleteLocationForUser_successful() {
+        User user = getUserWithoutId(USER_LOGIN_TEST, USER_PASSWORD_TEST);
         Location location = getLocationWithoutId(LOCATION_NAME, LOCATION_LATITUDE, LOCATION_LONGITUDE);
-        locationRepository.save(location);
-        CoordinateDto coordinate = new CoordinateDto(LOCATION_LATITUDE, LOCATION_LONGITUDE);
-        locationRepository.findByCoordinate(coordinate).orElseThrow();
+        user.addLocation(location);
+        userRepository.save(user);
+        Integer userId = user.getId();
+        LocationDto locationDto = locationMapper.toCoordinate(location);
+        locationRepository.deleteLocationForUser(locationDto, userId);
+
+        assertTrue(user.getLocations().isEmpty());
     }
 }

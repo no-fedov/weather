@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 
@@ -21,6 +22,7 @@ import java.time.Duration;
 public class AppConfig {
 
     @Bean
+    @Profile("dev")
     public HttpClient httpClient(@Value("${weather.api.connect.timeout.sec}") long connectionTimeout) {
         return HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(connectionTimeout))

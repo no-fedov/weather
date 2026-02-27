@@ -3,11 +3,11 @@ package org.nefedov.weather.application.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.RequiredArgsConstructor;
-import org.nefedov.weather.application.dto.CoordinateDto;
 import org.nefedov.weather.application.dto.WeatherClientResponseDto;
 import org.nefedov.weather.application.exception.ApiConnectTimeoutException;
 import org.nefedov.weather.application.exception.ApiResponseDeserializeException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
+@Profile("dev")
 @RequiredArgsConstructor
 public class WeatherClient {
 
@@ -37,8 +38,8 @@ public class WeatherClient {
         return sendRequest(parameters);
     }
 
-    public Optional<WeatherClientResponseDto> findByCoordinate(CoordinateDto dto) {
-        Map<String, Object> parameters = Map.of("lat", dto.lat(), "lon", dto.lon());
+    public Optional<WeatherClientResponseDto> findByCoordinate(Double latitude, Double longitude) {
+        Map<String, Object> parameters = Map.of("lat", latitude, "lon", longitude);
         return sendRequest(parameters);
     }
 
