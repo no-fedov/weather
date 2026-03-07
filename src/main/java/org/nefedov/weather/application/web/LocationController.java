@@ -2,14 +2,16 @@ package org.nefedov.weather.application.web;
 
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.LocationDto;
+import org.nefedov.weather.application.dto.SessionDto;
 import org.nefedov.weather.application.service.LocationService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RestController
+@Controller
 @RequestMapping("/location")
 @RequiredArgsConstructor
 public class LocationController {
@@ -17,12 +19,16 @@ public class LocationController {
     private final LocationService locationService;
 
     @PostMapping
-    public void add(LocationDto locationDto,  @RequestAttribute("userId") Integer userId) {
-        locationService.saveLocationForUser(locationDto, userId);
+    public String add(LocationDto locationDto, @RequestParam("cityName") String cityName,
+                      @RequestAttribute("session") SessionDto session) {
+        locationService.saveLocationForUser(locationDto, session.userId());
+        return String.format("redirect:/home/location?name=%s", cityName);
     }
 
     @DeleteMapping
-    public void deleteForUser(LocationDto locationDto, @RequestAttribute("userId") Integer userId) {
-        locationService.deleteLocationForUser(locationDto, userId);
+    public String deleteForUser(LocationDto locationDto, @RequestParam("cityName") String cityName,
+                                @RequestAttribute("session") SessionDto session) {
+        locationService.deleteLocationForUser(locationDto, session.userId());
+        return String.format("redirect:/home/location?name=%s", cityName);
     }
 }

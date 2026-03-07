@@ -20,8 +20,8 @@ public class LocationService {
     }
 
     @Transactional
-    public void deleteLocationForUser(LocationDto location, Integer userId) {
-        locationRepository.deleteLocationForUser(location, userId);
+    public void deleteLocationForUser(LocationDto dto, Integer userId) {
+        locationRepository.deleteLocationForUser(dto, userId);
     }
 
     @Transactional

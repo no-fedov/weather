@@ -31,9 +31,10 @@ public class RegistrationController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void registration(UserCreateDto dto, HttpServletResponse response) {
+    public String registration(UserCreateDto dto, HttpServletResponse response) {
         SessionDto registration = registrationService.registration(dto, LocalDateTime.now());
         Cookie cookie = new Cookie("session-id", registration.uuid().toString());
         response.addCookie(cookie);
+        return "redirect:home";
     }
 }

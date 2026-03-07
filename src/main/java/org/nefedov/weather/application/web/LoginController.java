@@ -28,9 +28,10 @@ public class LoginController {
     }
 
     @PostMapping
-    public void signIn(UserLoginDto dto, HttpServletResponse response) {
+    public String signIn(UserLoginDto dto, HttpServletResponse response) {
         SessionDto session = loginService.login(dto, LocalDateTime.now());
         Cookie cookie = new Cookie("session-id", session.uuid().toString());
         response.addCookie(cookie);
+        return "redirect:home";
     }
 }

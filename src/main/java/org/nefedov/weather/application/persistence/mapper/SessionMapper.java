@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class SessionMapper {
 
     public SessionDto toDto(Session session) {
-        return new SessionDto(session.getId(), session.getUser().getId(), session.getExpiresAt());
+        return new SessionDto(session.getId(), session.getUser().getId(), session.getUser().getLogin(), session.getExpiresAt());
     }
 
     public Session toEntity(LocalDateTime expiresAt, User user) {

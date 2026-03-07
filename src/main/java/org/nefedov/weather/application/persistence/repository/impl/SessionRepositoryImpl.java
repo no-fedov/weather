@@ -1,8 +1,9 @@
-package org.nefedov.weather.application.persistence.repository;
+package org.nefedov.weather.application.persistence.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.nefedov.weather.application.persistence.entity.Session;
+import org.nefedov.weather.application.persistence.repository.SessionRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

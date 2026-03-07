@@ -3,8 +3,10 @@ package org.nefedov.weather.application.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.RequiredArgsConstructor;
-import org.nefedov.weather.application.dto.WeatherClientResponseDto;
+import org.nefedov.weather.application.dto.LocationResponseDto;
+import org.nefedov.weather.application.dto.WeatherResponseDto;
 import org.nefedov.weather.application.exception.ApiConnectTimeoutException;
+import org.nefedov.weather.application.exception.ApiNotFoundException;
 import org.nefedov.weather.application.exception.ApiResponseDeserializeException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -19,8 +21,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpConnectTimeoutException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @Profile("dev")
@@ -29,28 +31,32 @@ public class WeatherClient {
 
     @Value("${weather.api.key}")
     private String apiKey;
+    @Value("${weather.api.uri.geo}")
+    private String geoURI;
+    @Value("${weather.api.uri.weather}")
+    private String weatherURI;
 
     private final HttpClient httpClient;
     private final JsonMapper jsonMapper;
 
-    public Optional<WeatherClientResponseDto> findByCityName(String city) {
-        Map<String, Object> parameters = Map.of("q", city);
-        return sendRequest(parameters);
+    public List<LocationResponseDto> findLocationByCityName(String city) {
+        Map<String, Object> parameters = Map.of("q", city, "limit", 5);
+        return sendRequest(geoURI, parameters, new TypeReference<>() {});
     }
 
-    public Optional<WeatherClientResponseDto> findByCoordinate(Double latitude, Double longitude) {
-        Map<String, Object> parameters = Map.of("lat", latitude, "lon", longitude);
-        return sendRequest(parameters);
+    public WeatherResponseDto findByCoordinate(Double latitude, Double longitude) {
+        Map<String, Object> parameters = Map.of("lat", latitude, "lon", longitude, "units", "metric");
+        return sendRequest(weatherURI, parameters, new TypeReference<>() {});
     }
 
-    private Optional<WeatherClientResponseDto> sendRequest(Map<String, Object> parameters) {
-        HttpRequest request = buildGetRequest(uri(parameters));
+    private <T> T sendRequest(String uri, Map<String, Object> parameters, TypeReference<T> typeReference) {
+        HttpRequest request = buildGetRequest(uri(uri, parameters));
         try {
             HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
             if (response.statusCode() == HttpStatus.NOT_FOUND.value()) {
-                return Optional.empty();
+                throw new ApiNotFoundException();
             }
-            return Optional.of(deserializeResponseBody(response.body()));
+            return deserializeResponseBody(response.body(), typeReference);
         } catch (HttpConnectTimeoutException e) {
             throw new ApiConnectTimeoutException(e);
         } catch (Exception e) {
@@ -58,10 +64,9 @@ public class WeatherClient {
         }
     }
 
-    private WeatherClientResponseDto deserializeResponseBody(InputStream body) {
+    private <T> T deserializeResponseBody(InputStream body, TypeReference<T> typeReference) {
         try {
-            return jsonMapper.readValue(body, new TypeReference<>() {
-            });
+            return jsonMapper.readValue(body, typeReference);
         } catch (IOException e) {
             throw new ApiResponseDeserializeException(e);
         }
@@ -74,11 +79,9 @@ public class WeatherClient {
                 .build();
     }
 
-    private URI uri(Map<String, Object> queryParam) {
-        UriComponentsBuilder builder = UriComponentsBuilder
-                .fromUriString("https://api.openweathermap.org/data/2.5/weather");
+    private URI uri(String uri, Map<String, Object> queryParam) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(uri);
         queryParam.forEach(builder::queryParam);
-        builder.queryParam("units", "metric");
         builder.queryParam("appid", apiKey);
         return builder.build().toUri();
     }

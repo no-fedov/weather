@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class LocationMapper {
 
     public Location toEntity(LocationDto dto) {
-        return new Location(dto.name(), dto.lat(), dto.lon());
+        return new Location(dto.name(), dto.latitude(), dto.longitude());
     }
 
     public LocationDto toCoordinate(Location location) {

@@ -26,11 +26,12 @@ public class AuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         Cookie sessionCookie = Arrays.stream(request.getCookies())
                 .filter(cookie -> Objects.equals(cookie.getName(), "session-id"))
-                .findFirst().orElseThrow();
+                .findFirst()
+                .orElseThrow();
         String sessionId = sessionCookie.getValue();
         UUID uuid = UUID.fromString(sessionId);
-        SessionDto sessionDto = sessionManager.find(uuid);
-        request.setAttribute("userId", sessionDto.userId());
+        SessionDto session = sessionManager.find(uuid);
+        request.setAttribute("session", session);
         filterChain.doFilter(request, response);
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class WeatherClientResponseDto {
+public class WeatherResponseDto {
 
     @JsonProperty("coord")
     private Coordinate coordinate;

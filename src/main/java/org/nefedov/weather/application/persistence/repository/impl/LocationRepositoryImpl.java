@@ -1,4 +1,4 @@
-package org.nefedov.weather.application.persistence.repository;
+package org.nefedov.weather.application.persistence.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
@@ -7,6 +7,8 @@ import org.nefedov.weather.application.dto.LocationDto;
 import org.nefedov.weather.application.persistence.entity.Location;
 import org.nefedov.weather.application.persistence.entity.User;
 import org.nefedov.weather.application.persistence.mapper.LocationMapper;
+import org.nefedov.weather.application.persistence.repository.LocationRepository;
+import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -40,11 +42,11 @@ public class LocationRepositoryImpl implements LocationRepository {
         return Optional.ofNullable(location);
     }
 
-    public Optional<Location> findByCoordinate(LocationDto locationDto) {
+    public Optional<Location> findByCoordinate(LocationDto dto) {
         Session session = sessionFactory.getCurrentSession();
         Location location = session.createQuery(FIND_LOCATION_BY_COORDINATE_TEMPLATE, Location.class)
-                .setParameter("latitude", locationDto.lat())
-                .setParameter("longitude", locationDto.lon())
+                .setParameter("latitude", dto.latitude())
+                .setParameter("longitude", dto.longitude())
                 .getSingleResult();
         return Optional.ofNullable(location);
     }

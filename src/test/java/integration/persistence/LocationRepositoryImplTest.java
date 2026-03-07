@@ -2,6 +2,7 @@ package integration.persistence;
 
 import org.junit.jupiter.api.Test;
 import org.nefedov.weather.application.dto.LocationDto;
+import org.nefedov.weather.application.dto.LocationResponseDto;
 import org.nefedov.weather.application.persistence.entity.Location;
 import org.nefedov.weather.application.persistence.entity.User;
 import org.nefedov.weather.application.persistence.mapper.LocationMapper;
@@ -47,8 +48,8 @@ public class LocationRepositoryImplTest extends RepositoryTest {
         user.addLocation(location);
         userRepository.save(user);
         Integer userId = user.getId();
-        LocationDto locationDto = locationMapper.toCoordinate(location);
-        locationRepository.deleteLocationForUser(locationDto, userId);
+        LocationDto locationResponseDto = locationMapper.toCoordinate(location);
+        locationRepository.deleteLocationForUser(locationResponseDto, userId);
 
         assertTrue(user.getLocations().isEmpty());
     }
