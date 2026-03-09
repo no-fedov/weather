@@ -16,4 +16,16 @@ public class LocationResponseDto {
     private BigDecimal latitude;
     @JsonProperty("lon")
     private BigDecimal longitude;
+
+    public BigDecimal getLatitude() {
+        return latitude != null
+                ? latitude.setScale(6, BigDecimal.ROUND_HALF_UP).stripTrailingZeros()
+                : null;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude != null
+                ? longitude.setScale(6, BigDecimal.ROUND_HALF_UP).stripTrailingZeros()
+                : null;
+    }
 }

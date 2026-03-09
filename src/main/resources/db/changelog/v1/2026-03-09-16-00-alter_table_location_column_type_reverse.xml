@@ -6,8 +6,8 @@
 
     <changeSet id="2026-03-09-16-00" author="no-fedov">
 
-        <modifyDataType tableName="location" columnName="latitude" newDataType="decimal(65,38)"/>
-        <modifyDataType tableName="location" columnName="longitude" newDataType="decimal(65,38)"/>
+        <modifyDataType tableName="location" columnName="latitude" newDataType="decimal(9,6)"/>
+        <modifyDataType tableName="location" columnName="longitude" newDataType="decimal(9,6)"/>
 
     </changeSet>
 
