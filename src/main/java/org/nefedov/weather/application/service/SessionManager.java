@@ -34,4 +34,9 @@ public class SessionManager {
         Session session = sessionRepository.findById(uuid).orElseThrow();
         return sessionMapper.toDto(session);
     }
+
+    @Transactional
+    public void delete(UUID uuid) {
+        sessionRepository.delete(uuid);
+    }
 }

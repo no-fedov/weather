@@ -13,6 +13,8 @@ import java.util.UUID;
 @Repository
 public class SessionRepositoryImpl implements SessionRepository {
 
+    private static String DELETE_QUERY_TEMPLATE = "delete from Session s where s.id=:uuid";
+
     private final SessionFactory sessionFactory;
 
     @Override
@@ -28,5 +30,11 @@ public class SessionRepositoryImpl implements SessionRepository {
         org.hibernate.Session session = sessionFactory.getCurrentSession();
         Session userSession = session.find(Session.class, uuid);
         return Optional.ofNullable(userSession);
+    }
+
+    @Override
+    public void delete(UUID uuid) {
+        org.hibernate.Session session = sessionFactory.getCurrentSession();
+        session.createQuery(DELETE_QUERY_TEMPLATE).setParameter("uuid", uuid).executeUpdate();
     }
 }

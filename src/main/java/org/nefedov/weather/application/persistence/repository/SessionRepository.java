@@ -5,4 +5,5 @@ import org.nefedov.weather.application.persistence.entity.Session;
 import java.util.UUID;
 
 public interface SessionRepository extends CrudRepository<Session, UUID> {
+    void delete(UUID uuid);
 }

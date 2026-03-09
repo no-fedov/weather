@@ -6,7 +6,10 @@
         </a>
         <div class="d-flex align-items-center">
             <span th:text="${userLogin}" class="navbar-text me-3">zhukovsd</span>
-            <button class="btn btn-outline-danger">Sign out</button>
+            <form th:action="@{/sign-out}" method="post">
+                <input type="hidden" name="_method" th:value="delete">
+                <button class="btn btn-outline-danger">Sign out</button>
+            </form>
         </div>
     </div>
 </header>
