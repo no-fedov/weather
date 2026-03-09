@@ -1,6 +1,7 @@
 package org.nefedov.weather.application.persistence.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +11,9 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.nefedov.weather.application.persistence.entity.converter.CoordinateConverter;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -29,12 +33,14 @@ public class Location {
     private String name;
 
     @Column(name = "latitude", nullable = false)
-    private Double latitude;
+    @Convert(converter = CoordinateConverter.class)
+    private BigDecimal latitude;
 
     @Column(name = "longitude", nullable = false)
-    private Double longitude;
+    @Convert(converter = CoordinateConverter.class)
+    private BigDecimal longitude;
 
-    public Location(String name, Double latitude, Double longitude) {
+    public Location(String name, BigDecimal latitude, BigDecimal longitude) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;

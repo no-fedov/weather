@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpConnectTimeoutException;
@@ -44,7 +45,7 @@ public class WeatherClient {
         return sendRequest(geoURI, parameters, new TypeReference<>() {});
     }
 
-    public WeatherResponseDto findByCoordinate(Double latitude, Double longitude) {
+    public WeatherResponseDto findByCoordinate(BigDecimal latitude, BigDecimal longitude) {
         Map<String, Object> parameters = Map.of("lat", latitude, "lon", longitude, "units", "metric");
         return sendRequest(weatherURI, parameters, new TypeReference<>() {});
     }

@@ -44,11 +44,10 @@ public class LocationRepositoryImpl implements LocationRepository {
 
     public Optional<Location> findByCoordinate(LocationDto dto) {
         Session session = sessionFactory.getCurrentSession();
-        Location location = session.createQuery(FIND_LOCATION_BY_COORDINATE_TEMPLATE, Location.class)
+        return session.createQuery(FIND_LOCATION_BY_COORDINATE_TEMPLATE, Location.class)
                 .setParameter("latitude", dto.latitude())
                 .setParameter("longitude", dto.longitude())
-                .getSingleResult();
-        return Optional.ofNullable(location);
+                .uniqueResultOptional();
     }
 
     @Override

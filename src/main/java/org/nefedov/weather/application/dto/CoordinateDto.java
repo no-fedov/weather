@@ -1,4 +1,6 @@
 package org.nefedov.weather.application.dto;
 
-public record CoordinateDto(Double latitude, Double longitude) {
+import java.math.BigDecimal;
+
+public record CoordinateDto(BigDecimal latitude, BigDecimal longitude) {
 }

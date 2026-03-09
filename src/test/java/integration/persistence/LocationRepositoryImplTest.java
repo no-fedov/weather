@@ -10,6 +10,8 @@ import org.nefedov.weather.application.persistence.repository.LocationRepository
 import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static util.LocationUtil.getLocationWithoutId;
 import static util.UserUtil.getUserWithoutId;
@@ -17,8 +19,8 @@ import static util.UserUtil.getUserWithoutId;
 public class LocationRepositoryImplTest extends RepositoryTest {
 
     private static final String LOCATION_NAME = "MOSCOW";
-    private static final Double LOCATION_LATITUDE = 10d;
-    private static final Double LOCATION_LONGITUDE = 20d;
+    private static final BigDecimal LOCATION_LATITUDE = new BigDecimal(10);
+    private static final BigDecimal LOCATION_LONGITUDE = new BigDecimal(20);
 
     @Autowired
     private UserRepository userRepository;
