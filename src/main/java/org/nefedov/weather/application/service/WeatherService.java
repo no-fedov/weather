@@ -36,6 +36,7 @@ public class WeatherService {
         for (LocationDto location : locations) {
             try {
                 var weatherByCoordinate = weatherClient.findByCoordinate(location.latitude(), location.longitude());
+                weatherByCoordinate.setCityName(location.name());
                 result.add(weatherByCoordinate);
             } catch (Exception e) {
                 log.warn("Ошибка weather client", e);
