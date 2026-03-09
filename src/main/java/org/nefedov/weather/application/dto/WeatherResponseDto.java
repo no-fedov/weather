@@ -15,7 +15,11 @@ public class WeatherResponseDto {
     @JsonProperty("weather")
     private List<Weather> weather;
     @JsonProperty("main")
-    private Temperature temperature;
+    private Main main;
+    @JsonProperty("name")
+    private String cityName;
+    @JsonProperty("sys")
+    public Sys sys;
 
     @Getter
     @Setter
@@ -29,14 +33,21 @@ public class WeatherResponseDto {
     public static class Weather {
         private String main;
         private String description;
+        private String icon;
     }
 
     @Getter
     @Setter
-    public static class Temperature {
+    public static class Main {
         @JsonProperty("temp")
         private String temperature;
         @JsonProperty("feels_like")
         private String feelsLike;
+        private String humidity;
+    }
+
+    public static class Sys {
+        @JsonProperty("country")
+        public String country;
     }
 }
