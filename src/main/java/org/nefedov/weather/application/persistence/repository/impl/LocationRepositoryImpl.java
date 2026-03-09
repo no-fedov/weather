@@ -58,6 +58,7 @@ public class LocationRepositoryImpl implements LocationRepository {
         user.addLocation(location);
     }
 
+    // TODO: проверить проблему N + 1
     @Override
     public void deleteLocationForUser(LocationDto locationDto, Integer userId) {
         Location location = findByCoordinate(locationDto).orElseThrow();

@@ -1,4 +1,4 @@
-package org.nefedov.weather.application.web;
+package org.nefedov.weather.application.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.LocationResponseDto;

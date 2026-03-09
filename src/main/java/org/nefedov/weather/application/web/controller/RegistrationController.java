@@ -1,4 +1,4 @@
-package org.nefedov.weather.application.web;
+package org.nefedov.weather.application.web.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
