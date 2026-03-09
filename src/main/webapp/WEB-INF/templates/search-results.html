@@ -27,12 +27,13 @@
                             <p th:text="|Country: *{country}" class="card-text mb-1">Country: US</p>
                             <p th:text="|State: *{state}" class="card-text mb-3">State: California</p>
                             <form th:action="@{/location}" method="POST">
+                                <input type="hidden" name="_method" th:value="*{isAdded} ? 'delete' : 'post'">
                                 <input type="hidden" name="name" th:value="*{name}">
                                 <input type="hidden" name="latitude" th:value="*{latitude}">
                                 <input type="hidden" name="longitude" th:value="*{longitude}">
                                 <input type="hidden" name="cityName" th:value="${cityName}">
                                 <div class="mt-auto">
-                                    <button class="btn btn-primary w-100">Add</button>
+                                    <button th:text="*{isAdded} ? 'Delete' : 'Add'" class="btn btn-primary w-100">Add</button>
                                 </div>
                             </form>
                         </div>

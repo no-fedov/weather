@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 @RequestMapping("/location")
@@ -22,13 +27,15 @@ public class LocationController {
     public String add(LocationDto locationDto, @RequestParam("cityName") String cityName,
                       @RequestAttribute("session") SessionDto session) {
         locationService.saveLocationForUser(locationDto, session.userId());
-        return String.format("redirect:/home/location?name=%s", cityName);
+        String encodeCityName = URLEncoder.encode(cityName, StandardCharsets.UTF_8);
+        return String.format("redirect:/home/location?name=%s", encodeCityName);
     }
 
     @DeleteMapping
     public String deleteForUser(LocationDto locationDto, @RequestParam("cityName") String cityName,
                                 @RequestAttribute("session") SessionDto session) {
         locationService.deleteLocationForUser(locationDto, session.userId());
-        return String.format("redirect:/home/location?name=%s", cityName);
+        String encodeCityName = URLEncoder.encode(cityName, StandardCharsets.UTF_8);
+        return String.format("redirect:/home/location?name=%s", encodeCityName);
     }
 }

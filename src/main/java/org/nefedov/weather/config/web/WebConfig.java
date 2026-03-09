@@ -8,6 +8,7 @@ import org.nefedov.weather.config.app.AppConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.filter.DelegatingFilterProxy;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 @Configuration
@@ -37,10 +38,10 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
                 "authFilter",
                 new DelegatingFilterProxy("authFilter")
         );
-        authFilter.addMappingForUrlPatterns(
-                null,
-                true,
-                "/*"
+        authFilter.addMappingForUrlPatterns(null, true, "/*");
+        FilterRegistration.Dynamic hiddenMethodFilter = servletContext.addFilter(
+                "hiddenMethodFilter", new HiddenHttpMethodFilter()
         );
+        hiddenMethodFilter.addMappingForUrlPatterns(null, true, "/*");
     }
 }

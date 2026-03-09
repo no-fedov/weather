@@ -2,6 +2,7 @@ package org.nefedov.weather.application.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.LocationResponseDto;
+import org.nefedov.weather.application.dto.LocationUserResponseDto;
 import org.nefedov.weather.application.dto.SessionDto;
 import org.nefedov.weather.application.dto.WeatherResponseDto;
 import org.nefedov.weather.application.service.WeatherService;
@@ -29,8 +30,10 @@ public class HomeController {
     }
 
     @GetMapping("/location")
-    public String location(Model model, @RequestParam("name") String cityName) {
-        List<LocationResponseDto> locations = weatherService.findLocationByCity(cityName);
+    public String location(Model model,
+                           @RequestAttribute("session") SessionDto session,
+                           @RequestParam("name") String cityName) {
+        List<LocationUserResponseDto> locations = weatherService.findLocationByCity(session.userId(), cityName);
         model.addAttribute("locations", locations);
         model.addAttribute("cityName", cityName);
         return "search-results";
