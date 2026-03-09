@@ -1,7 +1,6 @@
 package org.nefedov.weather.application.web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.nefedov.weather.application.dto.LocationResponseDto;
 import org.nefedov.weather.application.dto.LocationUserResponseDto;
 import org.nefedov.weather.application.dto.SessionDto;
 import org.nefedov.weather.application.dto.WeatherResponseDto;
