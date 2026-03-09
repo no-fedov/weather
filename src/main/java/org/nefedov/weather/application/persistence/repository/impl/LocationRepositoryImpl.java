@@ -53,7 +53,7 @@ public class LocationRepositoryImpl implements LocationRepository {
 
     @Override
     public void saveLocationForUser(LocationDto dto, Integer userId) {
-        Location location = locationMapper.toEntity(dto);
+        Location location = findByCoordinate(dto).orElseThrow();
         User user = userRepository.findById(userId).orElseThrow();
         user.addLocation(location);
     }
