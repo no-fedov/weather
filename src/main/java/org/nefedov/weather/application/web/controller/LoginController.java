@@ -7,7 +7,6 @@ import org.nefedov.weather.application.dto.SessionDto;
 import org.nefedov.weather.application.dto.UserLoginDto;
 import org.nefedov.weather.application.service.LoginService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +21,7 @@ public class LoginController {
     private final LoginService loginService;
 
     @GetMapping
-    public String signInForm(Model model) {
-        model.addAttribute("userLoginDto", new UserLoginDto());
+    public String form() {
         return "sign-in";
     }
 
