@@ -13,20 +13,20 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-                <form th:action="@{/sign-in}" th:object="${userLoginDto}" method="POST" class="mb-3">
+                <form th:action="@{/sign-in}" method="POST" class="mb-3">
                     <div class="mb-3">
                         <label class="form-label">Username</label>
                         <input class="form-control"
                                type="text"
                                required
-                               th:field="*{login}">
+                               name="login">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Password</label>
                         <input class="form-control"
                                type="password"
                                required
-                               th:field="*{password}">
+                               name="password">
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mt-3">Sign Up</button>
                 </form>
