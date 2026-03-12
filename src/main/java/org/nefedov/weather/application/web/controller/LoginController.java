@@ -2,6 +2,7 @@ package org.nefedov.weather.application.web.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.SessionDto;
 import org.nefedov.weather.application.dto.UserLoginDto;
@@ -26,7 +27,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public String signIn(UserLoginDto dto, HttpServletResponse response) {
+    public String signIn(@Valid UserLoginDto dto, HttpServletResponse response) {
         SessionDto session = loginService.login(dto, LocalDateTime.now());
         Cookie cookie = new Cookie("session-id", session.uuid().toString());
         response.addCookie(cookie);
