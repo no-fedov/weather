@@ -2,6 +2,7 @@ package org.nefedov.weather.application.web.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.SessionDto;
 import org.nefedov.weather.application.dto.UserCreateDto;
@@ -29,7 +30,7 @@ public class RegistrationController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public String registration(UserCreateDto dto, HttpServletResponse response) {
+    public String registration(@Valid UserCreateDto dto, HttpServletResponse response) {
         SessionDto registration = registrationService.registration(dto, LocalDateTime.now());
         Cookie cookie = new Cookie("session-id", registration.uuid().toString());
         response.addCookie(cookie);
