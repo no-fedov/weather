@@ -35,7 +35,7 @@ public class SessionManagerTest {
         userRepository.save(user);
         LocalDateTime expiresAt = LocalDateTime.now();
 
-        SessionDto createdSession = sessionManager.create(user.getId(), expiresAt);
+        SessionDto createdSession = sessionManager.create(user.getId());
 
         assertEquals(user.getId(), createdSession.userId());
         assertEquals(expiresAt, createdSession.expiresAt());
@@ -47,6 +47,6 @@ public class SessionManagerTest {
         User user = UserUtil.getUserWithId(1, "login", "password");
         LocalDateTime expiresAt = LocalDateTime.now();
 
-        assertThrows(Exception.class, () -> sessionManager.create(user.getId(), expiresAt));
+        assertThrows(Exception.class, () -> sessionManager.create(user.getId()));
     }
 }

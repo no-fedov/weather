@@ -2,7 +2,6 @@ package integration.persistence;
 
 import org.junit.jupiter.api.Test;
 import org.nefedov.weather.application.dto.LocationDto;
-import org.nefedov.weather.application.dto.LocationResponseDto;
 import org.nefedov.weather.application.persistence.entity.Location;
 import org.nefedov.weather.application.persistence.entity.User;
 import org.nefedov.weather.application.persistence.mapper.LocationMapper;

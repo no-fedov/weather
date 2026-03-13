@@ -3,27 +3,34 @@ package org.nefedov.weather.application.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.SessionDto;
+import org.nefedov.weather.application.dto.UserCreateDto;
 import org.nefedov.weather.application.dto.UserLoginDto;
+import org.nefedov.weather.application.exception.AuthException;
 import org.nefedov.weather.application.persistence.entity.User;
 import org.nefedov.weather.application.persistence.repository.UserRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class LoginService {
+public class AuthService {
 
     private final UserRepository userRepository;
     private final SessionManager sessionManager;
 
     @Transactional
-    public SessionDto login(UserLoginDto dto, LocalDateTime expiresAt) {
+    public SessionDto login(UserLoginDto dto) {
         User user = userRepository.findByLogin(dto.getLogin()).orElseThrow();
         if (!Objects.equals(user.getPassword(), dto.getPassword())) {
-            throw new RuntimeException();
+            throw new AuthException();
         }
-        return sessionManager.create(user.getId(), expiresAt);
+        return sessionManager.create(user.getId());
+    }
+
+    @Transactional
+    public SessionDto registration(UserCreateDto user) {
+        User savedUser = userRepository.save(new User(user.getLogin(), user.getPassword()));
+        return sessionManager.create(savedUser.getId());
     }
 }
