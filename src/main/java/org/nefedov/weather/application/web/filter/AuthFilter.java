@@ -48,7 +48,7 @@ public class AuthFilter extends OncePerRequestFilter {
     }
 
     private void validateSession(SessionDto session) {
-        if (session.expiresAt().isAfter(LocalDateTime.now())) {
+        if (session.expiresAt().isBefore(LocalDateTime.now())) {
             throw new AuthException();
         }
     }
