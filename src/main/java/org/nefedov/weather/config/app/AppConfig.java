@@ -1,5 +1,6 @@
 package org.nefedov.weather.config.app;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,5 +45,15 @@ public class AppConfig {
         DateTimeFormatterRegistrar dateTimeRegistrar = new DateTimeFormatterRegistrar();
         dateTimeRegistrar.registerFormatters(conversionService);
         return conversionService;
+    }
+
+    @Bean
+    public BCrypt.Hasher passwordHasher() {
+        return BCrypt.withDefaults();
+    }
+
+    @Bean
+    public BCrypt.Verifyer passwordVerifyer() {
+        return BCrypt.verifyer();
     }
 }
