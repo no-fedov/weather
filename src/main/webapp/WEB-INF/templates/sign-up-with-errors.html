@@ -17,9 +17,9 @@
 
     <h2 class="text-center mb-5">Sign Up</h2>
 
-    <div class="row justify-content-center">
+    <div th:if="${global_exception} != null" class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-            <div class="alert alert-danger" role="alert">
+            <div th:text="${global_exception}" class="alert alert-danger" role="alert">
                 Passwords don't match.
             </div>
         </div>
@@ -29,10 +29,16 @@
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
             <form th:action="@{/sign-up}" method="POST" class="mb-3">
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="login" class="form-label">Username</label>
                     <div class="input-group has-validation">
-                        <input type="text" class="form-control is-invalid" id="username" name="username" required value=""/>
-                        <div class="invalid-feedback">
+                        <input type="text"
+                               class="form-control"
+                               id="login"
+                               name="login"
+                               required
+                               th:classappend="${login_exception}?: 'is-invalid'"
+                        />
+                        <div class="invalid-feedback" th:text="${login_exception}">
                             Account with this email already exists.
                         </div>
                     </div>
@@ -40,8 +46,14 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group has-validation">
-                        <input type="password" class="form-control is-invalid" id="password" name="password" required value=""/>
-                        <div class="invalid-feedback">
+                        <input type="password"
+                               class="form-control is-invalid"
+                               id="password"
+                               name="password"
+                               required
+                               th:classappend="${password_exception}?: 'is-invalid'"
+                        />
+                        <div class="invalid-feedback" th:text="${password_exception}">
                             Password must be at least 4 characters long.
                         </div>
                     </div>
