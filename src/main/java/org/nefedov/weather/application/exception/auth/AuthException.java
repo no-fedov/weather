@@ -1,4 +1,4 @@
-package org.nefedov.weather.application.exception;
+package org.nefedov.weather.application.exception.auth;
 
 import lombok.experimental.StandardException;
 
