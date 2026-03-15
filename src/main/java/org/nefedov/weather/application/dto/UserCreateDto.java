@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.nefedov.weather.application.validation.FieldsValueMatch;
 
-@FieldsValueMatch(field = "password", fieldMatch = "repeatedPassword")
+@FieldsValueMatch(field = "password", fieldMatch = "repeatedPassword", message = "Passwords don't match")
 @NoArgsConstructor
 @Getter
 @Setter
