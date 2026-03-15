@@ -1,7 +1,10 @@
 package org.nefedov.weather.application.exception.auth;
 
-import lombok.experimental.StandardException;
+import static org.nefedov.weather.application.exception.auth.AuthException.AuthExceptionMessages.SESSION_EXPIRATION;
 
-@StandardException
 public class SessionExpiredException extends AuthException {
+
+    public SessionExpiredException() {
+        super(SESSION_EXPIRATION.getMessage());
+    }
 }
