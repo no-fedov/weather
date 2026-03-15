@@ -1,7 +1,10 @@
 package org.nefedov.weather.application.exception.auth;
 
-import lombok.experimental.StandardException;
+import static org.nefedov.weather.application.exception.auth.AuthException.AuthExceptionMessages.LOGIN_ALREADY_EXISTS;
 
-@StandardException
 public class UserLoginAlreadyExistsException extends AuthException {
+
+    public UserLoginAlreadyExistsException() {
+        super(LOGIN_ALREADY_EXISTS.getMessage());
+    }
 }
