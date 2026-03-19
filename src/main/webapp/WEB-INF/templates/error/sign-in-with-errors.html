@@ -27,7 +27,7 @@
 
     <div class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-            <form th:action="@{/sign-up}" method="POST" class="mt-4">
+            <form th:action="@{/sign-in}" method="POST" class="mt-4">
                 <div class="mb-3">
                     <label for="login" class="form-label">Username</label>
 
@@ -39,23 +39,28 @@
                                required
                                th:classappend="${login_exception}? 'is-invalid' : ''"
                         />
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback" th:text="${login_exception}">
                             Invalid login.
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password"
-                           class="form-control"
-                           id="password"
-                           name="password"
-                           required
-                    />
-                </div>
+                    <div class="input-group has-validation">
+                        <input type="password"
+                               class="form-control"
+                               id="password"
+                               name="password"
+                               required
+                               th:classappend="${password_exception}? 'is-invalid' : ''"
+                        />
+                        <div class="invalid-feedback" th:text="${password_exception}">
+                            Password must be at least 4 characters long.
+                        </div>
+                    </div>
 
-                <button type="submit" class="btn btn-primary w-100 mt-3">Sign In</button>
-                <p class="mt-2 text-center">Don't have an account? <a href="/sign-up">Sign up here</a></p>
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Sign In</button>
+                    <p class="mt-2 text-center">Don't have an account? <a href="/sign-up">Sign up here</a></p>
             </form>
         </div>
     </div>
