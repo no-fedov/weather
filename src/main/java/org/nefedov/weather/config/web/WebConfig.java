@@ -7,7 +7,6 @@ import org.jspecify.annotations.Nullable;
 import org.nefedov.weather.config.app.AppConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -33,12 +32,6 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
-
-        FilterRegistration.Dynamic authFilter = servletContext.addFilter(
-                "authFilter",
-                new DelegatingFilterProxy("authFilter")
-        );
-        authFilter.addMappingForUrlPatterns(null, true, "/*");
         FilterRegistration.Dynamic hiddenMethodFilter = servletContext.addFilter(
                 "hiddenMethodFilter", new HiddenHttpMethodFilter()
         );
