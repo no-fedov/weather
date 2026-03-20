@@ -44,9 +44,7 @@ public class AuthFilter extends OncePerRequestFilter {
         if (servletPath.equals("/") || servletPath.equals("/sign-in") || servletPath.equals("/sign-up")) {
             return true;
         }
-        return servletPath.startsWith("/css")
-                || servletPath.startsWith("/js")
-                || servletPath.startsWith("/error");
+        return servletPath.startsWith("/css") || servletPath.startsWith("/js");
     }
 
     private void validateSession(SessionDto session) {

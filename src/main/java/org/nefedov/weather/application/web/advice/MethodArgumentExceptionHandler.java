@@ -22,9 +22,9 @@ public class MethodArgumentExceptionHandler {
         List<ObjectError> errors = ex.getAllErrors();
         processError(errors, model);
         return switch (ex.getTarget()) {
-            case UserCreateDto target -> "error/sign-up-with-errors";
-            case UserLoginDto target -> "error/sign-in-with-errors";
-            default -> "error";
+            case UserCreateDto target -> "redirect:sign-up-with-errors";
+            case UserLoginDto target -> "redirect:sign-in-with-errors";
+            default -> "redirect:/error";
         };
     }
 
