@@ -8,6 +8,7 @@ import org.nefedov.weather.application.dto.UserCreateDto;
 import org.nefedov.weather.application.service.RegistrationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,8 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @GetMapping
-    public String form() {
+    public String registrationForm(Model model) {
+        model.addAttribute("userCreateDto", new UserCreateDto());
         return "sign-up";
     }
 
