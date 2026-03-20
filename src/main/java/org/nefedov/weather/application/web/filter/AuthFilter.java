@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.SessionDto;
-import org.nefedov.weather.application.exception.auth.AuthException;
+import org.nefedov.weather.application.exception.AuthException;
 import org.nefedov.weather.application.service.SessionManager;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
