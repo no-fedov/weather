@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
@@ -32,13 +31,13 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registration(@Valid UserCreateDto dto,
-                                     HttpServletResponse response,
-                                     RedirectAttributes redirectAttributes) {
+//    @ResponseStatus(HttpStatus.CREATED)
+    public ModelAndView registration(@Valid UserCreateDto dto, HttpServletResponse response) {
         SessionDto registration = registrationService.registration(dto, LocalDateTime.now());
         Cookie cookie = new Cookie("session-id", registration.uuid().toString());
         response.addCookie(cookie);
-        redirectAttributes.addAttribute("new_user", dto.getLogin());
-        return "redirect:/home";
+        RedirectView redirectView = new RedirectView("/home", true);
+        redirectView.setStatusCode(HttpStatus.CREATED);
+        return new ModelAndView(redirectView);
     }
 }
