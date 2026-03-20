@@ -10,7 +10,6 @@ import org.nefedov.weather.application.persistence.repository.SessionRepository;
 import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -18,16 +17,14 @@ import java.util.UUID;
 @Service
 public class SessionManager {
 
-    private final Duration sessionLifePeriod = Duration.ofMinutes(15);
-
     private final SessionRepository sessionRepository;
     private final UserRepository userRepository;
     private final SessionMapper sessionMapper;
 
     @Transactional
-    public SessionDto create(Integer userId) {
+    public SessionDto create(Integer userId, LocalDateTime expiresAt) {
         User currentUser = userRepository.findById(userId).orElseThrow();
-        Session session = sessionMapper.toEntity(calculateExpiration(sessionLifePeriod), currentUser);
+        Session session = sessionMapper.toEntity(expiresAt, currentUser);
         sessionRepository.save(session);
         return sessionMapper.toDto(session);
     }
@@ -41,9 +38,5 @@ public class SessionManager {
     @Transactional
     public void delete(UUID uuid) {
         sessionRepository.delete(uuid);
-    }
-
-    private LocalDateTime calculateExpiration(Duration lifePeriod) {
-        return LocalDateTime.now().plus(lifePeriod);
     }
 }
