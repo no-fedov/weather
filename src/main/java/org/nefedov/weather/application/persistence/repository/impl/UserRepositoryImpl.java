@@ -3,8 +3,6 @@ package org.nefedov.weather.application.persistence.repository.impl;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.exception.ConstraintViolationException;
-import org.nefedov.weather.application.exception.auth.UserLoginAlreadyExistsException;
 import org.nefedov.weather.application.persistence.entity.User;
 import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.stereotype.Repository;
@@ -20,12 +18,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User save(User entity) {
         Session session = sessionFactory.getCurrentSession();
-        try {
-            session.persist(entity);
-            session.flush();
-        } catch (ConstraintViolationException e) {
-            throw new UserLoginAlreadyExistsException();
-        }
+        session.persist(entity);
+        session.flush();
         return entity;
     }
 

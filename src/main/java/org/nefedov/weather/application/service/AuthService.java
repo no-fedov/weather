@@ -7,7 +7,6 @@ import org.nefedov.weather.application.dto.UserCreateDto;
 import org.nefedov.weather.application.dto.UserLoginDto;
 import org.nefedov.weather.application.exception.UserNotFoundException;
 import org.nefedov.weather.application.exception.auth.AuthException;
-import org.nefedov.weather.application.exception.auth.PrincipalException;
 import org.nefedov.weather.application.persistence.entity.User;
 import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.stereotype.Component;
@@ -24,7 +23,7 @@ public class AuthService {
     public SessionDto login(UserLoginDto user) {
         User foundUser = userRepository.findByLogin(user.getLogin()).orElseThrow(UserNotFoundException::new);
         if (!passwordProcessor.verify(user.getPassword(), foundUser.getPassword())) {
-            throw new PrincipalException();
+            throw new AuthException();
         }
         return sessionManager.create(foundUser.getId());
     }
