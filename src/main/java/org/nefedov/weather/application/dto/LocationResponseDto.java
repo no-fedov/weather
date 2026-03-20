@@ -19,13 +19,13 @@ public class LocationResponseDto {
 
     public BigDecimal getLatitude() {
         return latitude != null
-                ? latitude.setScale(6, BigDecimal.ROUND_HALF_UP)
+                ? latitude.setScale(6, BigDecimal.ROUND_HALF_UP).stripTrailingZeros()
                 : null;
     }
 
     public BigDecimal getLongitude() {
         return longitude != null
-                ? longitude.setScale(6, BigDecimal.ROUND_HALF_UP)
+                ? longitude.setScale(6, BigDecimal.ROUND_HALF_UP).stripTrailingZeros()
                 : null;
     }
 }
