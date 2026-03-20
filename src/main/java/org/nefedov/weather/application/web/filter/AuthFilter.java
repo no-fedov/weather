@@ -37,10 +37,11 @@ public class AuthFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        boolean shouldNotFilter = false;
         String servletPath = request.getServletPath();
-        if (servletPath.equals("/") || servletPath.equals("/sign-in") || servletPath.equals("/sign-up")) {
-            return true;
-        }
-        return servletPath.startsWith("/css") || servletPath.startsWith("/js");
+        switch (servletPath) {
+            case "/", "/sign-in", "/sign-up" -> shouldNotFilter = true ;
+        };
+        return shouldNotFilter;
     }
 }
