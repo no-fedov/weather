@@ -11,27 +11,27 @@ import org.nefedov.weather.application.persistence.entity.User;
 import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 @RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
     private final SessionManager sessionManager;
-    private final PasswordProcessor passwordProcessor;
 
     @Transactional
-    public SessionDto login(UserLoginDto user) {
-        User foundUser = userRepository.findByLogin(user.getLogin()).orElseThrow(UserNotFoundException::new);
-        if (!passwordProcessor.verify(user.getPassword(), foundUser.getPassword())) {
+    public SessionDto login(UserLoginDto dto) {
+        User user = userRepository.findByLogin(dto.getLogin()).orElseThrow(UserNotFoundException::new);
+        if (!Objects.equals(user.getPassword(), dto.getPassword())) {
             throw new AuthException();
         }
-        return sessionManager.create(foundUser.getId());
+        return sessionManager.create(user.getId());
     }
 
     @Transactional
     public SessionDto registration(UserCreateDto user) {
-        String hashedPassword = passwordProcessor.encode(user.getPassword());
-        User savedUser = userRepository.save(new User(user.getLogin(), hashedPassword));
+        User savedUser = userRepository.save(new User(user.getLogin(), user.getPassword()));
         return sessionManager.create(savedUser.getId());
     }
 }
