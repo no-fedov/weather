@@ -17,9 +17,9 @@
 
     <h2 class="text-center mb-5">Sign In</h2>
 
-    <div th:if="${global_exception} != null" class="row justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-            <div th:text="${global_exception}" class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" role="alert">
                 Invalid username or password.
             </div>
         </div>
@@ -33,11 +33,10 @@
 
                     <div class="input-group has-validation">
                         <input type="text"
-                               class="form-control"
+                               class="form-control is-invalid"
                                id="login"
                                name="login"
                                required
-                               th:classappend="${login_exception}? 'is-invalid' : ''"
                         />
                         <div class="invalid-feedback">
                             Invalid login.
