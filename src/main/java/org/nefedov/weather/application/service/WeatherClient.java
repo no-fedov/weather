@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.LocationResponseDto;
-import org.nefedov.weather.application.dto.WeatherResponseDto;
+import org.nefedov.weather.application.dto.WeatherExternalResponseDto;
 import org.nefedov.weather.application.exception.ApiConnectTimeoutException;
 import org.nefedov.weather.application.exception.ApiNotFoundException;
 import org.nefedov.weather.application.exception.ApiResponseDeserializeException;
@@ -43,7 +43,7 @@ public class WeatherClient {
         return sendRequest(geoURI, parameters, new TypeReference<>() {});
     }
 
-    public WeatherResponseDto findByCoordinate(BigDecimal latitude, BigDecimal longitude) {
+    public WeatherExternalResponseDto findByCoordinate(BigDecimal latitude, BigDecimal longitude) {
         Map<String, Object> parameters = Map.of("lat", latitude, "lon", longitude, "units", "metric");
         return sendRequest(weatherURI, parameters, new TypeReference<>() {});
     }

@@ -16,7 +16,7 @@ public class LocationMapper {
     }
 
     public LocationDto toCoordinate(Location location) {
-        return new LocationDto(location.getName(), location.getLatitude(), location.getLongitude());
+        return new LocationDto(location.getId(), location.getName(), location.getLatitude(), location.getLongitude());
     }
 
     public Set<LocationDto> toCoordinates(Collection<Location> locations) {

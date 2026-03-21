@@ -2,11 +2,7 @@ package org.nefedov.weather.application.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.nefedov.weather.application.dto.CoordinateDto;
-import org.nefedov.weather.application.dto.LocationDto;
-import org.nefedov.weather.application.dto.LocationResponseDto;
-import org.nefedov.weather.application.dto.LocationUserResponseDto;
-import org.nefedov.weather.application.dto.WeatherResponseDto;
+import org.nefedov.weather.application.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -30,14 +26,15 @@ public class WeatherService {
                 .map(e -> convertToLocationUser(addedUserCoordinate, e)).toList();
     }
 
-    public List<WeatherResponseDto> findForUser(Integer userId) {
-        List<WeatherResponseDto> result = new LinkedList<>();
+    public List<WeatherInternalResponseDto> findForUser(Integer userId) {
+        List<WeatherInternalResponseDto> result = new LinkedList<>();
         Set<LocationDto> locations = locationService.findUserLocation(userId);
         for (LocationDto location : locations) {
             try {
                 var weatherByCoordinate = weatherClient.findByCoordinate(location.latitude(), location.longitude());
                 weatherByCoordinate.setCityName(location.name());
-                result.add(weatherByCoordinate);
+                WeatherInternalResponseDto weather = new WeatherInternalResponseDto(weatherByCoordinate, location.id());
+                result.add(weather);
             } catch (Exception e) {
                 log.warn("Ошибка weather client", e);
             }

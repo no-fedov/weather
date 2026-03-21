@@ -4,7 +4,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.nefedov.weather.application.dto.LocationUserResponseDto;
 import org.nefedov.weather.application.dto.SessionDto;
-import org.nefedov.weather.application.dto.WeatherResponseDto;
+import org.nefedov.weather.application.dto.WeatherExternalResponseDto;
+import org.nefedov.weather.application.dto.WeatherInternalResponseDto;
 import org.nefedov.weather.application.service.WeatherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,7 @@ public class HomeController {
                        @RequestParam("new_user") Optional<String> newUser,
                        HttpServletResponse response) {
         newUser.ifPresent(param -> response.setStatus(HttpStatus.CREATED.value()));
-        List<WeatherResponseDto> weathers = weatherService.findForUser(session.userId());
+        List<WeatherInternalResponseDto> weathers = weatherService.findForUser(session.userId());
         model.addAttribute("weathers", weathers);
         return "home";
     }

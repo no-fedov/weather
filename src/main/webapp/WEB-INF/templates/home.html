@@ -18,24 +18,21 @@
                 <div th:each="weather : ${weathers}" class="col-12 col-lg-3 col-md-6 mb-4">
                     <div th:object="${weather}" class="card h-100 position-relative weather-card">
                         <div class="position-absolute weather-card-delete-form">
-                            <form th:action=@{/location/weather} method="POST">
+                            <form th:action=@{/location/{userLocationId}(userLocationId=*{userLocationId})} method="POST">
                                 <input type="hidden" name="_method" value="delete">
-                                <input type="hidden" name="name" th:value="*{cityName}">
-                                <input type="hidden" name="latitude" th:value="*{coordinate.lat}">
-                                <input type="hidden" name="longitude" th:value="*{coordinate.lon}">
                                 <button class="btn-close" aria-label="Delete"></button>
                             </form>
                         </div>
                         <img class="card-img-top img-fluid"
-                             th:src="*{'https://openweathermap.org/img/wn/' + weather[0].icon + '@4x.png'}"
+                             th:src="*{'https://openweathermap.org/img/wn/' + externalResponse.weather[0].icon + '@4x.png'}"
                              alt="Weather icon">
                         <div class="card-body d-flex flex-column">
-                            <h1 class="card-text" th:text="|*{main.temperature} °C|">7°C</h1>
-                            <h3 class="card-title" th:text="|*{cityName}, *{sys.country}|"></h3>
-                            <p class="card-text mb-1">Feels like: <span th:text="*{main.feelsLike}">2</span>°C.
-                                <span th:text="|*{weather[0].main}, *{weather[0].description}|">Clear sky</span>
+                            <h1 class="card-text" th:text="|*{externalResponse.main.temperature} °C|">7°C</h1>
+                            <h3 class="card-title" th:text="|*{externalResponse.cityName}, *{externalResponse.sys.country}|"></h3>
+                            <p class="card-text mb-1">Feels like: <span th:text="*{externalResponse.main.feelsLike}">2</span>°C.
+                                <span th:text="|*{weather[0].externalResponse.main}, *{externalResponse.weather[0].description}|">Clear sky</span>
                             </p>
-                            <p class="card-text mb-1" th:text="|Humidity: *{main.humidity}%|">Humidity: 70%</p>
+                            <p class="card-text mb-1" th:text="|Humidity: *{externalResponse.main.humidity}%|">Humidity: 70%</p>
                         </div>
                     </div>
                 </div>
