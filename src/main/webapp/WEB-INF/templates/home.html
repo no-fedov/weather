@@ -18,13 +18,13 @@
                 <div th:each="weather : ${weathers}" class="col-12 col-lg-3 col-md-6 mb-4">
                     <div th:object="${weather}" class="card h-100 position-relative weather-card">
                         <div class="position-absolute weather-card-delete-form">
-                            <form action=@{/location/weather} method="POST">
+                            <form th:action=@{/location/weather} method="POST">
                                 <input type="hidden" name="_method" value="delete">
-                                <input type="hidden" name="name" th:value="*{name}">
-                                <input type="hidden" name="latitude" th:value="*{latitude}">
-                                <input type="hidden" name="longitude" th:value="*{longitude}">
+                                <input type="hidden" name="name" th:value="*{cityName}">
+                                <input type="hidden" name="latitude" th:value="*{coordinate.lat}">
+                                <input type="hidden" name="longitude" th:value="*{coordinate.lon}">
+                                <button class="btn-close" aria-label="Delete"></button>
                             </form>
-                            <button class="btn-close" aria-label="Delete"></button>
                         </div>
                         <img class="card-img-top img-fluid"
                              th:src="*{'https://openweathermap.org/img/wn/' + weather[0].icon + '@4x.png'}"

@@ -15,13 +15,18 @@ public class LocationService {
     private final LocationRepository locationRepository;
 
     @Transactional
-    public void saveLocationForUser(LocationDto dto, Integer userId) {
-        locationRepository.saveLocationForUser(dto, userId);
+    public void saveForUser(LocationDto dto, Integer userId) {
+        locationRepository.saveForUser(dto, userId);
     }
 
     @Transactional
-    public void deleteLocationForUser(LocationDto dto, Integer userId) {
-        locationRepository.deleteLocationForUser(dto, userId);
+    public void deleteForUser(LocationDto dto, Integer userId) {
+        locationRepository.deleteForUser(dto, userId);
+    }
+
+    @Transactional
+    public void deleteForUser(Integer locationId, Integer userId) {
+        locationRepository.deleteForUser(locationId, userId);
     }
 
     @Transactional

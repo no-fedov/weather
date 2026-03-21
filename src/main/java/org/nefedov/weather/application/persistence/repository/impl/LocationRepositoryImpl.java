@@ -22,6 +22,10 @@ public class LocationRepositoryImpl implements LocationRepository {
             from Location l
             where l.latitude = :latitude and l.longitude = :longitude
             """;
+    private static final String DELETE_FROM_USER_LOCATION_TEMPLATE = """
+            delete from user_location
+            where user_id = :userId and location_id = :locationId
+            """;
 
     private final SessionFactory sessionFactory;
     private final UserRepository userRepository;
@@ -51,17 +55,26 @@ public class LocationRepositoryImpl implements LocationRepository {
     }
 
     @Override
-    public void saveLocationForUser(LocationDto dto, Integer userId) {
+    public void saveForUser(LocationDto dto, Integer userId) {
         Location location = findByCoordinate(dto).orElseGet(() -> save(locationMapper.toEntity(dto)));
         User user = userRepository.findById(userId).orElseThrow();
         user.addLocation(location);
     }
 
     @Override
-    public void deleteLocationForUser(LocationDto locationDto, Integer userId) {
+    public void deleteForUser(LocationDto locationDto, Integer userId) {
         Location location = findByCoordinate(locationDto).orElseThrow();
         User user = userRepository.findById(userId).orElseThrow();
         user.getLocations().remove(location);
+    }
+
+    @Override
+    public void deleteForUser(Integer locationId, Integer userId) {
+        Session session = sessionFactory.getCurrentSession();
+        session.createNativeQuery(DELETE_FROM_USER_LOCATION_TEMPLATE)
+                .setParameter("locationId", locationId)
+                .setParameter("userId", userId)
+                .executeUpdate();
     }
 
     @Override

@@ -31,7 +31,7 @@ public class LocationRepositoryImplTest extends RepositoryTest {
     private LocationMapper locationMapper;
 
     @Test
-    public void saveLocationForUser_Successful() {
+    public void saveForUser_Successful() {
         User user = getUserWithoutId(USER_LOGIN_TEST, USER_PASSWORD_TEST);
         Location location = getLocationWithoutId(LOCATION_NAME, LOCATION_LATITUDE, LOCATION_LONGITUDE);
         user.addLocation(location);
@@ -43,14 +43,14 @@ public class LocationRepositoryImplTest extends RepositoryTest {
     }
 
     @Test
-    public void deleteLocationForUser_successful() {
+    public void deleteForUser_successful() {
         User user = getUserWithoutId(USER_LOGIN_TEST, USER_PASSWORD_TEST);
         Location location = getLocationWithoutId(LOCATION_NAME, LOCATION_LATITUDE, LOCATION_LONGITUDE);
         user.addLocation(location);
         userRepository.save(user);
         Integer userId = user.getId();
         LocationDto locationResponseDto = locationMapper.toCoordinate(location);
-        locationRepository.deleteLocationForUser(locationResponseDto, userId);
+        locationRepository.deleteForUser(locationResponseDto, userId);
 
         assertTrue(user.getLocations().isEmpty());
     }

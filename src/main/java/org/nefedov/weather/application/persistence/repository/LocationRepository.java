@@ -7,9 +7,11 @@ import java.util.Set;
 
 public interface LocationRepository extends CrudRepository<Location, Integer> {
 
-    void saveLocationForUser(LocationDto dto, Integer userId);
+    void saveForUser(LocationDto dto, Integer userId);
 
-    void deleteLocationForUser(LocationDto dto, Integer userId);
+    void deleteForUser(LocationDto dto, Integer userId);
+
+    void deleteForUser(Integer locationId, Integer userId);
 
     Set<LocationDto> findByUserId(Integer userId);
 }
