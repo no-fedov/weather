@@ -36,4 +36,11 @@ public class LocationController {
         String encodeCityName = URLEncoder.encode(cityName, StandardCharsets.UTF_8);
         return String.format("redirect:/home/location?name=%s", encodeCityName);
     }
+
+    @DeleteMapping
+    @RequestMapping("/weather")
+    public String deleteForUser(LocationDto locationDto, @RequestAttribute("session") SessionDto session) {
+        locationService.deleteLocationForUser(locationDto, session.userId());
+        return String.format("redirect:/home");
+    }
 }

@@ -13,5 +13,6 @@
     <include file="2026-02-19-18-50-alter-user_location-autoincrement_id.xml" relativeToChangelogFile="true"/>
     <include file="2026-02-19-19-30-alter_table_location_column_type.xml" relativeToChangelogFile="true"/>
     <include file="2026-03-09-16-00-alter_table_location_column_type_reverse.xml" relativeToChangelogFile="true"/>
+    <include file="2026-03-20-17-55-users_column_type_password.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

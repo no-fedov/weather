@@ -16,20 +16,11 @@ public class PasswordProcessor {
     private final BCrypt.Hasher passwordHasher;
     private final BCrypt.Verifyer passwordVerifyer;
 
-    @Value("${app.security.salt}")
-    private String salt;
-
     public String encode(String password) {
-        return passwordHasher.hash(HASH_ITERATION_DEGREE,
-                salt.getBytes(StandardCharsets.UTF_8),
-                password.getBytes(StandardCharsets.UTF_8))
-                .toString();
+        return passwordHasher.hashToString(HASH_ITERATION_DEGREE, password.toCharArray());
     }
 
     public boolean verify(String password, String encodedPassword) {
-        return passwordVerifyer.verify(password.getBytes(StandardCharsets.UTF_8),
-                HASH_ITERATION_DEGREE, salt.getBytes(StandardCharsets.UTF_8),
-                encodedPassword.getBytes(StandardCharsets.UTF_8))
-                .verified;
+        return passwordVerifyer.verify(password.toCharArray(), encodedPassword.toCharArray()).verified;
     }
 }
