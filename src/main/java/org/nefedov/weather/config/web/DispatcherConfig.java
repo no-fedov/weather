@@ -29,13 +29,15 @@ public class DispatcherConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+        registry.addResourceHandler("/images/**").addResourceLocations("/images/");
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         AuthInterceptor authInterceptor = context.getBean(AuthInterceptor.class);
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(authInterceptor);
-        interceptorRegistration.excludePathPatterns("/", "/sign-in", "/sign-up", "/css/**", "/js/**", "/error/**");
+        interceptorRegistration.excludePathPatterns("/", "/sign-in", "/sign-up", "/css/**", "/js/**",
+                "/error/**", "/images/**");
     }
 
     @Bean
