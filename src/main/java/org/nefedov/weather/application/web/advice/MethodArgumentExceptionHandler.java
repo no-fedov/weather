@@ -24,7 +24,7 @@ public class MethodArgumentExceptionHandler {
         return switch (ex.getTarget()) {
             case UserCreateDto target -> "error/sign-up-with-errors";
             case UserLoginDto target -> "error/sign-in-with-errors";
-            default -> "error";
+            default -> "error/error";
         };
     }
 

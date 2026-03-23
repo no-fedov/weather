@@ -21,7 +21,7 @@ public class AuthService {
 
     @Transactional
     public SessionDto login(UserLoginDto user) {
-        User foundUser = userRepository.findByLogin(user.getLogin()).orElseThrow(UserNotFoundException::new);
+        User foundUser = userRepository.findByLogin(user.getLogin()).orElseThrow(PrincipalException::new);
         if (!passwordProcessor.verify(user.getPassword(), foundUser.getPassword())) {
             throw new PrincipalException();
         }
