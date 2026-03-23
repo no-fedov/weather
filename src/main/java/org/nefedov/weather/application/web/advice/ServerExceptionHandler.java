@@ -11,6 +11,6 @@ public class ServerExceptionHandler {
     @ExceptionHandler
     public String exceptionHandler(Throwable exception) {
         log.error("Server exception", exception);
-        return "redirect:error/error";
+        return "error/error";
     }
 }
