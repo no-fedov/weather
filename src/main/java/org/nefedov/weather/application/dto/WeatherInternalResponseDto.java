@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class WeatherInternalResponseDto {
-    private WeatherExternalResponseDto externalResponse;
+    private WeatherExternalResponseDto weather;
     private Integer userLocationId;
 }
