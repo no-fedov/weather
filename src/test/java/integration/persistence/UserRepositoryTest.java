@@ -5,9 +5,7 @@ import org.nefedov.weather.application.persistence.entity.User;
 import org.nefedov.weather.application.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static util.UserUtil.getUserWithoutId;
 
 public class UserRepositoryTest extends RepositoryTest {

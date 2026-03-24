@@ -2,10 +2,7 @@ package org.nefedov.weather.application.service;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.nio.charset.StandardCharsets;
 
 @Component
 @RequiredArgsConstructor

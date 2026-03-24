@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nefedov.weather.application.dto.LocationUserResponseDto;
 import org.nefedov.weather.application.dto.SessionDto;
-import org.nefedov.weather.application.dto.WeatherExternalResponseDto;
 import org.nefedov.weather.application.dto.WeatherInternalResponseDto;
 import org.nefedov.weather.application.service.WeatherService;
 import org.springframework.http.HttpStatus;

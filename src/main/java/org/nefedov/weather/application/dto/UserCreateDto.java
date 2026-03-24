@@ -2,6 +2,7 @@ package org.nefedov.weather.application.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import org.nefedov.weather.application.validation.FieldsValueMatch;
 
 @FieldsValueMatch(field = "password", fieldMatch = "repeatedPassword", message = "Passwords don't match")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class UserCreateDto {

@@ -48,7 +48,7 @@ public class LocationController {
     }
 
     @DeleteMapping
-    @RequestMapping("/{userLocationId}")
+    @RequestMapping("/weather/{userLocationId}")
     public String deleteForUser(@PathVariable("userLocationId") Integer userLocationId,
                                 @RequestAttribute("session") SessionDto session) {
         locationService.deleteForUser(userLocationId, session.userId());

@@ -7,5 +7,5 @@ import org.springframework.context.annotation.Import;
 @ComponentScan
 @Import({DataSourceConfig.class})
 @ComponentScan(basePackages = "org.nefedov.weather.application.persistence")
-public class TestPersistenceConfig {
+public class PersistenceTestConfig {
 }

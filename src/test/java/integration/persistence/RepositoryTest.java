@@ -1,6 +1,6 @@
 package integration.persistence;
 
-import config.TestPersistenceConfig;
+import config.PersistenceTestConfig;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -8,7 +8,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 @ExtendWith({SpringExtension.class})
-@ContextConfiguration(classes = {TestPersistenceConfig.class})
+@ContextConfiguration(classes = {PersistenceTestConfig.class})
 @ActiveProfiles("test")
 @Transactional
 public abstract class RepositoryTest {

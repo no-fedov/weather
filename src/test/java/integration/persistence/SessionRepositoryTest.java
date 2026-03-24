@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static util.SessionUtil.getSessionWithUser;
 import static util.SessionUtil.getSessionWithoutUser;
 import static util.UserUtil.getUserWithoutId;
