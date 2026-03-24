@@ -4,11 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
@@ -18,11 +14,20 @@ import java.net.http.HttpClient;
 import java.time.Duration;
 
 @Configuration
-@ComponentScan(basePackages = {"org.nefedov.weather.application", "org.nefedov.weather.config.app"},
-        excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION,
-                classes = Controller.class))
-@PropertySource("classpath:application.properties")
+@ComponentScan(
+        basePackages = {"org.nefedov.weather.application", "org.nefedov.weather.config.app"},
+        excludeFilters = @ComponentScan.Filter(
+                type = FilterType.ANNOTATION,
+                classes = Controller.class
+        )
+)
 public class AppConfig {
+
+    @Profile("dev")
+    @Configuration
+    @PropertySource("classpath:application.properties")
+    static class DevProperty {
+    }
 
     @Bean
     public HttpClient httpClient(@Value("${weather.api.connect.timeout.sec}") long connectionTimeout) {
