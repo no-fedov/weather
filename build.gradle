@@ -36,6 +36,7 @@ dependencies {
     implementation("org.glassfish.expressly:expressly:6.0.0")
     implementation("at.favre.lib:bcrypt:0.10.2")
     testImplementation("org.awaitility:awaitility:4.3.0");
+    testImplementation("org.mockito:mockito-core:5.23.0")
 }
 
 test {

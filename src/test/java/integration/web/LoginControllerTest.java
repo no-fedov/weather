@@ -22,15 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class LoginControllerTest extends WebTest {
 
-    private static final String LOGIN_FIELD = "login";
-    private static final String PASSWORD_FIELD = "password";
-    private static final String REPEATED_PASSWORD_FIELD = "repeatedPassword";
-    private static final UserCreateDto testUser = new UserCreateDto(
-            "testlogin",
-            "testpassword",
-            "testpassword"
-    );
-
     @Autowired
     private AuthService authService;
 

@@ -30,6 +30,7 @@ public class AppConfig {
     }
 
     @Bean
+    @Profile("dev")
     public HttpClient httpClient(@Value("${weather.api.connect.timeout.sec}") long connectionTimeout) {
         return HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(connectionTimeout))
