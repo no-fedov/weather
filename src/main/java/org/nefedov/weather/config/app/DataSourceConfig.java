@@ -4,9 +4,11 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Import;
 import org.springframework.orm.jpa.hibernate.HibernateTransactionManager;
 import org.springframework.orm.jpa.hibernate.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -17,12 +19,25 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@Import(DevProperty.class)
 public class DataSourceConfig {
+
+    @Value("${db.url}")
+    private String dbURL;
+
+    @Value("${db.user}")
+    private String dbUser;
+
+    @Value("${db.user.password}")
+    private String dbPassword;
 
     @Bean
     public DataSource dataSource() throws ClassNotFoundException {
         Class.forName("org.mariadb.jdbc.Driver");
-        HikariConfig hikariConfig = new HikariConfig("hikari.properties");
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl(dbURL);
+        hikariConfig.setUsername(dbUser);
+        hikariConfig.setPassword(dbPassword);
         return new HikariDataSource(hikariConfig);
     }
 

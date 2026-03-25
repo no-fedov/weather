@@ -3,7 +3,6 @@ package org.nefedov.weather.application.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Getter

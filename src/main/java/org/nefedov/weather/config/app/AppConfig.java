@@ -21,13 +21,8 @@ import java.time.Duration;
                 classes = Controller.class
         )
 )
+@Import(DevProperty.class)
 public class AppConfig {
-
-    @Profile("dev")
-    @Configuration
-    @PropertySource("classpath:application.properties")
-    static class DevProperty {
-    }
 
     @Bean
     @Profile("dev")

@@ -14,7 +14,7 @@ dependencies {
     implementation "org.springframework:spring-webmvc:${springVersion}"
     implementation "org.springframework:spring-orm:${springVersion}"
     implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
-    implementation "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
+    runtimeOnly "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
     implementation "ch.qos.logback:logback-classic:${logbackVersion}"
     implementation "org.hibernate.orm:hibernate-core:${hibernateVersion}"
     implementation "com.zaxxer:HikariCP:${hikariVersion}"
