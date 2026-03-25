@@ -2,7 +2,6 @@ package integration.web;
 
 import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.Test;
-import org.nefedov.weather.application.dto.UserCreateDto;
 import org.nefedov.weather.application.exception.auth.SessionExpiredException;
 import org.nefedov.weather.application.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;

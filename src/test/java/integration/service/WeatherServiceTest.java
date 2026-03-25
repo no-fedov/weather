@@ -17,22 +17,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,11 +43,6 @@ public class WeatherServiceTest {
             "Москва",
             new BigDecimal(1),
             new BigDecimal(1)
-    );
-    private static final LocationDto secondLocation = new LocationDto(2,
-            "Тверь",
-            new BigDecimal(2),
-            new BigDecimal(2)
     );
 
     @Autowired
@@ -73,41 +65,23 @@ public class WeatherServiceTest {
 
     @Test
     public void findUserWeathers() throws IOException, InterruptedException {
-        Set<LocationDto> locations = Set.of(firstLocation, secondLocation);
+        Set<LocationDto> locations = Set.of(firstLocation);
         when(locationService.findUserLocation(userId)).thenReturn(locations);
 
-        WeatherExternalResponseDto firstExternalWeather = getExternalWeather(firstLocation.name(),
+        WeatherExternalResponseDto externalWeather = getExternalWeather(
+                firstLocation.name(),
                 firstLocation.longitude(),
                 firstLocation.latitude()
         );
-        WeatherExternalResponseDto secondExternalWeather = getExternalWeather(secondLocation.name(),
-                secondLocation.longitude(),
-                secondLocation.latitude()
-        );
-        prepareMockResponse(firstExternalWeather);
-        prepareMockResponse(secondExternalWeather);
 
-        WeatherInternalResponseDto firstInternalWeather = getInternalWeather(firstLocation);
-        WeatherInternalResponseDto secondInternalWeather = getInternalWeather(secondLocation);
+        prepareMockResponse(externalWeather);
 
         List<WeatherInternalResponseDto> userWeather = weatherService.findForUser(userId);
 
-        assertTrue(userWeather.contains(firstInternalWeather));
-        assertTrue(userWeather.contains(secondInternalWeather));
-    }
-
-    private HttpRequest buildGetRequest(String uri, BigDecimal latitude, BigDecimal longitude) {
-        URI copletedUri = UriComponentsBuilder.fromUriString(uri)
-                .queryParam("lat", latitude)
-                .queryParam("lon", longitude)
-                .queryParam("units", "metric")
-                .queryParam("appid", apiKey)
-                .build()
-                .toUri();
-        return HttpRequest.newBuilder()
-                .uri(copletedUri)
-                .GET()
-                .build();
+        assertFalse(userWeather.isEmpty());
+        assertEquals(firstLocation.id(), userWeather.getFirst().getUserLocationId());
+        assertEquals(firstLocation.longitude().toString(), userWeather.getFirst().getWeather().getCoordinate().getLon());
+        assertEquals(firstLocation.latitude().toString(), userWeather.getFirst().getWeather().getCoordinate().getLat());
     }
 
     private WeatherExternalResponseDto getExternalWeather(String cityName, BigDecimal longitude, BigDecimal latitude) {
@@ -117,19 +91,13 @@ public class WeatherServiceTest {
         return weather;
     }
 
-    private WeatherInternalResponseDto getInternalWeather(LocationDto location) {
-        return new WeatherInternalResponseDto(
-                getExternalWeather(location.name(), location.longitude(), location.longitude()),
-                location.id());
-    }
-
     private void prepareMockResponse(WeatherExternalResponseDto weatherExternalResponseDto) throws IOException, InterruptedException {
         byte[] weatherAsByte = jsonMapper.writeValueAsBytes(weatherExternalResponseDto);
         InputStream inputStream = new ByteArrayInputStream(weatherAsByte);
         HttpResponse response = mock(HttpResponse.class);
         when(response.body()).thenReturn(inputStream);
         when(response.statusCode()).thenReturn(HttpStatus.OK.value());
-        when(httpClient.send(argThat(resquest -> resquest.uri().), any())).thenReturn(response);
+        when(httpClient.send(any(), any())).thenReturn(response);
     }
 
 }
